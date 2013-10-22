@@ -585,7 +585,11 @@ rule "FC041", "Execute resource used to run curl or wget commands" do
   recipe do |ast|
     find_resources(ast, :type => 'execute').select do |cmd|
       cmd_str = (resource_attribute(cmd, 'command') || resource_name(cmd)).to_s
-      (cmd_str.include?('curl ') || cmd_str.include?('wget '))
+      has_curl = cmd_str.include?('curl ')
+      curl_is_post = cmd_str.include?(' -d ') || cmd_str.include?(' --data ')
+      has_wget = cmd_str.include?('wget ')
+
+      has_wget || has_curl && !curl_is_post
     end
   end
 end
