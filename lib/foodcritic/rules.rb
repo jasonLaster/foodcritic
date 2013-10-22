@@ -701,3 +701,10 @@ rule "FC051", "Template partials loop indefinitely" do
     end.map{|t| file_match(t)}
   end
 end
+
+  # update "FC041" do
+  #   recipe do |ast|
+  #   end
+  # end
+
+# whitelist "FC041"
