@@ -39,10 +39,14 @@ module FoodCritic
       yield self
     end
 
-    # update a rule
     def update(code, &block)
       @rule = rules.find {|rule| rule.code == code }
       yield self
+    end
+
+    def whitelist(code)
+      @rule = rules.find {|rule| rule.code == code }
+      @rule.recipe = Proc.new {}
     end
 
     # Add tags to the rule which can be used by the end user to filter the rules
